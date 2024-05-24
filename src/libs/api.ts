@@ -1,10 +1,11 @@
+import { Categoria } from "@/types/Categoria";
 import { Order } from "@/types/Order";
 import { OrderStatus } from "@/types/Ordersatus";
 import { Product } from "@/types/Product";
 
 const tempProduct: Product = {
     id: 99,
-    image: 'https://saopaulosecreto.com/wp-content/uploads/2022/10/Get-Burguer-1024x683.jpg',
+    image: 'https://292aa00292a014763d1b-96a84504aed2b25fc1239be8d2b61736.ssl.cf1.rackcdn.com/GaleriaImagem/130275/fotos-para-hamburguerias_fotografia-de-hamburguer-4.JPG',
     categoria: {
         id: 99,
         name: 'Burguers'
@@ -88,5 +89,59 @@ export const api = {
     },
     changeOrderStats: async (id: number, newStatus: OrderStatus) => {
         return true;
+    },
+    getCategories: async (): Promise<Categoria[]> => {
+        const list: Categoria[] = [
+            {id: 99, name: 'Burgers'},
+            {id: 98, name: 'Refrigerantes'},
+            {id: 97, name: 'Doces'},
+        ];
+
+        return new Promise(resolve => {
+            setTimeout(()=> {
+                resolve(list);
+            }, 200)
+        })
+    },
+    getProducts: async (): Promise<Product[]> => {
+        const list: Product[] = [
+           {...tempProduct, id: 123},
+           {...tempProduct, id: 124},
+           {...tempProduct, id: 125},
+           {...tempProduct, id: 126},
+           {...tempProduct, id: 127},
+           {...tempProduct, id: 128},
+           {...tempProduct, id: 129},
+           {...tempProduct, id: 130},
+        ];
+
+        return new Promise(resolve => {
+            setTimeout(()=> {
+                resolve(list);
+            }, 500)
+        })
+    },
+    deleteProduct: async (id: number): Promise<boolean> => {
+        return new Promise(resolve => {
+            setTimeout(()=> {
+                resolve(true);
+            }, 1000)
+        })
+    },
+
+    createProduct: async (form: FormData) => {
+        return new Promise(resolve => {
+            setTimeout(()=> {
+                resolve(true);
+            }, 1000)
+        })
+    },
+
+    updateProduct: async (form: FormData) => {
+        return new Promise(resolve => {
+            setTimeout(()=> {
+                resolve(true);
+            }, 1000)
+        })
     }
 }
