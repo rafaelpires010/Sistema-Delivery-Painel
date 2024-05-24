@@ -1,8 +1,8 @@
 'use client'
 
-import { ProdctEditdialog } from "@/components/ProductEditDialog";
-import { ProductTableItem } from "@/components/ProductTableItem";
-import { ProductTableSkeleton } from "@/components/ProductTableSkeleton";
+import { CategoryEditDialog } from "@/components/CategoryEditDialog";
+import { CategoryTableItem } from "@/components/CategoryTableItem";
+import { CategoryTableSkeleton } from "@/components/CategoryTableSkeleton";
 import { api } from "@/libs/api";
 import { Categoria } from "@/types/Categoria";
 import { Product } from "@/types/Product";
@@ -12,118 +12,121 @@ import { FormEvent, useEffect, useState } from "react";
 const Page = () => {
 
     const [loading, setLoading] = useState(false);
-    const [products, setProducts] = useState<Product[]>([])
     const [categorias, setCategorias] = useState<Categoria[]>([])
+    const [products, setProducts] = useState<Product[]>([])
 
     const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-    const [productTodelete, setProductTodelete] = useState<Product>();
+    const [categoryTodelete, setCategoryTodelete] = useState<Categoria>();
     const [loadingDelete, setLoadingDelete] = useState(false)
 
     const [editDialogOpen, setEditDialogOpen] = useState(false);
-    const [productToEdit, setProductToEdit] = useState<Product>();
+    const [CategoryToEdit, setCategoryToEdit] = useState<Categoria>();
     const [loadingEditDialog, setLoadingEditDialog] = useState(false);
 
 
     useEffect(() => {
-        getProducts();
+        getCategorys();
     }, []);
 
-    const getProducts = async () => {
+    const getCategorys = async () => {
         setLoading(true);
-
-        setProducts(await api.getProducts());
         setCategorias(await api.getCategories());
-
+        setProducts(await api.getProducts());
         setLoading(false);
     }
 
-    //deletar produto
+    // Check if category is associated with any product
+    const isCategoryAssociated = (categoryId: number) => {
+        return products.some(product => product.categoria.id === categoryId);
+    }
 
-    const handleDeleteProduct = (product: Product) => {
-        setProductTodelete(product)
+    //deletar Category
+
+    const handleDeleteCategory = (category: Categoria) => {
+        setCategoryTodelete(category)
         setShowDeleteDialog(true);
     }
 
     const handleConfirmDelete = async () => {
-        if (productTodelete) {
+        if (categoryTodelete) {
             setLoadingDelete(true)
-            await api.deleteProduct(productTodelete.id)
+            await api.deleteCategory(categoryTodelete.id)
             setLoadingDelete(false)
             setShowDeleteDialog(false);
-            getProducts();
+            getCategorys();
         }
     }
 
-    //new/edit Product
+    //new/edit Category
 
-    const handleNewProduct = () => {
-        setProductToEdit(undefined);
+    const handleNewCategory = () => {
+        setCategoryToEdit(undefined);
         setEditDialogOpen(true);
     }
 
-    const handleEditProduct = (product: Product) => {
-        setProductToEdit(product);
+    const handleEditCategory = (category: Categoria) => {
+        setCategoryToEdit(category);
         setEditDialogOpen(true)
     }
     const handleSaveEditDialog = async (event: FormEvent<HTMLFormElement>) => {
         let form = new FormData(event.currentTarget);
 
         setLoadingEditDialog(true);
-        if (productToEdit) {
-            form.append('id', productToEdit.id.toString());
-            await api.updateProduct(form);
+        if (CategoryToEdit) {
+            form.append('id', CategoryToEdit.id.toString());
+            await api.updateCategory(form);
         } else {
-            await api.createProduct(form)
+            await api.createCategory(form)
         }
         setLoadingEditDialog(false);
         setEditDialogOpen(false);
 
-        getProducts();
+        getCategorys();
     }
+
 
     return (
         <>
             <Box sx={{ my: 3 }}>
                 <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography component="h5" variant="h5" sx={{ color: '#555', mr: 2 }}>Produtos</Typography>
-                    <Button onClick={handleNewProduct}>Novo Produto</Button>
+                    <Typography component="h5" variant="h5" sx={{ color: '#555', mr: 2 }}>Categorias</Typography>
+                    <Button onClick={handleNewCategory}>Nova Categoria</Button>
                 </Box>
 
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ width: 50, display: { xs: 'none', md: 'table-cell' } }}>ID</TableCell>
-                            <TableCell>Imagem</TableCell>
+                            <TableCell sx={{ width: 50 }}>ID</TableCell>
                             <TableCell>Nome</TableCell>
-                            <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>Preço</TableCell>
-                            <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>Categoria</TableCell>
                             <TableCell sx={{ width: { xs: 50, md: 130 } }}>Ações</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {loading &&
                             <>
-                                <ProductTableSkeleton />
-                                <ProductTableSkeleton />
-                                <ProductTableSkeleton />
+                                <CategoryTableSkeleton />
+                                <CategoryTableSkeleton />
+                                <CategoryTableSkeleton />
+
                             </>
                         }
-                        {!loading && products.map(item => (
-                            <ProductTableItem
+                        {!loading && categorias.map(item => (
+                            <CategoryTableItem
                                 key={item.id}
                                 item={item}
-                                onEdit={handleEditProduct}
-                                onDelete={handleDeleteProduct}
+                                onEdit={handleEditCategory}
+                                onDelete={handleDeleteCategory}
+                                disabled={isCategoryAssociated(item.id)}
                             />
                         ))}
                     </TableBody>
                 </Table>
 
                 <Dialog open={showDeleteDialog} onClose={() => !loadingDelete ? setShowDeleteDialog(false) : null}>
-                    <DialogTitle>Temm certeza qe deseja deletar esse Produto?</DialogTitle>
+                    <DialogTitle>Temm certeza qe deseja deletar essa categoria?</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            O produto será excluido permanentemente após essa ação.
+                            A categoria será excluida permanentemente após essa ação.
                         </DialogContentText>
                         <DialogActions>
                             <Button disabled={loadingDelete} onClick={() => setShowDeleteDialog(false)}>Não</Button>
@@ -132,13 +135,12 @@ const Page = () => {
                     </DialogContent>
                 </Dialog>
 
-                <ProdctEditdialog
+                <CategoryEditDialog
                     open={editDialogOpen}
                     onClose={() => setEditDialogOpen(false)}
                     onSave={handleSaveEditDialog}
                     disabled={loadingEditDialog}
-                    product={productToEdit}
-                    categories={categorias}
+                    category={CategoryToEdit}
                 />
             </Box >
         </>

@@ -143,5 +143,27 @@ export const api = {
                 resolve(true);
             }, 1000)
         })
-    }
+    },
+    deleteCategory: async (id: number): Promise<boolean> => {
+        return new Promise(resolve => {
+            setTimeout(()=> {
+                resolve(true);
+            }, 1000)
+        })
+    },
+    createCategory: async (form: FormData) => {
+        return new Promise(resolve => {
+            setTimeout(()=> {
+                resolve(true);
+            }, 1000)
+        })
+    },
+
+    updateCategory: async (form: FormData) => {
+        return new Promise(resolve => {
+            setTimeout(()=> {
+                resolve(true);
+            }, 1000)
+        })
+    },
 }
