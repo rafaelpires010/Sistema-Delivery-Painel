@@ -2,19 +2,19 @@ import { Categoria } from "@/types/Categoria";
 import { Order } from "@/types/Order";
 import { OrderStatus } from "@/types/Ordersatus";
 import { Product } from "@/types/Product";
+import axios from "axios";
 
 const tempProduct: Product = {
     id: 99,
-    image: 'https://292aa00292a014763d1b-96a84504aed2b25fc1239be8d2b61736.ssl.cf1.rackcdn.com/GaleriaImagem/130275/fotos-para-hamburguerias_fotografia-de-hamburguer-4.JPG',
-    categoria: {
-        id: 99,
-        name: 'Burguers'
-    },
+    img: 'https://292aa00292a014763d1b-96a84504aed2b25fc1239be8d2b61736.ssl.cf1.rackcdn.com/GaleriaImagem/130275/fotos-para-hamburguerias_fotografia-de-hamburguer-4.JPG',
+    id_category: 2,
     nome: 'Burgão Boladão',
     preco: 35.3,
     description: 'um burgão boladão muito legal'
 }
 
+const API_BASE_URL = 'http://localhost:9000';
+const tenentSlug = 'restaurant-one';
 export const api = {
     login: async (email: string, password: string): Promise<{error: string, token?: string}> => {
         return new Promise(resolve => {
@@ -91,35 +91,23 @@ export const api = {
         return true;
     },
     getCategories: async (): Promise<Categoria[]> => {
-        const list: Categoria[] = [
-            {id: 99, name: 'Burgers'},
-            {id: 98, name: 'Refrigerantes'},
-            {id: 97, name: 'Doces'},
-        ];
-
-        return new Promise(resolve => {
-            setTimeout(()=> {
-                resolve(list);
-            }, 200)
-        })
+        try {
+            const response = await axios.get(`${API_BASE_URL}/${tenentSlug}/categories`);
+            return response.data;
+          } catch (error) {
+            console.error('Error fetching categories:', error);
+            throw new Error('Failed to fetch categories');
+          }
     },
     getProducts: async (): Promise<Product[]> => {
-        const list: Product[] = [
-           {...tempProduct, id: 123},
-           {...tempProduct, id: 124},
-           {...tempProduct, id: 125},
-           {...tempProduct, id: 126},
-           {...tempProduct, id: 127},
-           {...tempProduct, id: 128},
-           {...tempProduct, id: 129},
-           {...tempProduct, id: 130},
-        ];
-
-        return new Promise(resolve => {
-            setTimeout(()=> {
-                resolve(list);
-            }, 500)
-        })
+        try {
+            console.log(`Fetching products for tenant: ${tenentSlug}`); // Log para depuração
+            const response = await axios.get(`${API_BASE_URL}/${tenentSlug}/products`);
+            return response.data;
+          } catch (error) {
+            console.error('Error fetching products:', error);
+            throw error; // Re-throw the error to be handled by the caller
+          }
     },
     deleteProduct: async (id: number): Promise<boolean> => {
         return new Promise(resolve => {

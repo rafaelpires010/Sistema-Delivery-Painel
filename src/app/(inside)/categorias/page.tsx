@@ -37,7 +37,8 @@ const Page = () => {
 
     // Check if category is associated with any product
     const isCategoryAssociated = (categoryId: number) => {
-        return products.some(product => product.categoria.id === categoryId);
+        return products.some(product => product.id_category === categoryId);
+
     }
 
     //deletar Category
@@ -83,7 +84,6 @@ const Page = () => {
 
         getCategorys();
     }
-
 
     return (
         <>
@@ -145,6 +145,8 @@ const Page = () => {
             </Box >
         </>
     );
+
+
 }
 
 export default Page;

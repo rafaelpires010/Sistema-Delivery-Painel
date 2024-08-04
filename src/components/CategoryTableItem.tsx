@@ -13,7 +13,7 @@ export const CategoryTableItem = ({ item, onEdit, onDelete, disabled }: Props) =
         <TableRow hover>
             <TableCell sx={{ width: 50, display: { xs: 'none', md: 'table-cell' } }}>{item.id}</TableCell>
             <TableCell>
-                <Typography component="strong">{item.name}</Typography>
+                <Typography component="strong">{item.nome}</Typography>
             </TableCell>
 
             <TableCell sx={{ width: { xs: 50, md: 130 } }}>

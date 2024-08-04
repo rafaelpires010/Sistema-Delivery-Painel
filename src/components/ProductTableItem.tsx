@@ -12,7 +12,7 @@ export const ProductTableItem = ({ item, onEdit, onDelete }: Props) => {
         <TableRow hover>
             <TableCell sx={{ width: 50, display: { xs: 'none', md: 'table-cell' } }}>{item.id}</TableCell>
             <TableCell sx={{ width: { xs: 50, md: 100 } }}>
-                <img src={item.image} alt="" width="100%" />
+                <img src={item.img} alt="" width="100%" />
             </TableCell>
             <TableCell>
                 <Typography component="strong">{item.nome}</Typography>
@@ -23,11 +23,12 @@ export const ProductTableItem = ({ item, onEdit, onDelete }: Props) => {
             <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>
                 {item.preco.toFixed(2)}
             </TableCell>
-            <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>{item.categoria.name}</TableCell>
+            <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}> teste </TableCell>
             <TableCell sx={{ width: { xs: 50, md: 130 } }}>
                 <Button onClick={() => onEdit(item)} size="small"><Edit /></Button>
                 <Button onClick={() => onDelete(item)} size="small"><Delete /></Button>
             </TableCell>
         </TableRow>
     );
+
 }

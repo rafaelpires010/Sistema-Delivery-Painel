@@ -78,13 +78,13 @@ export const ProdctEditdialog = ({ open, onClose, onSave, categories, product, d
                             id="catField"
                             variant="standard"
                             name="category"
-                            defaultValue={product?.categoria.id || categories[0]?.id}
+                            defaultValue={product?.id_category || categories[0]?.id}
                             required
                             fullWidth
                             disabled={disabled}
                         >
                             {categories.map(item => (
-                                <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
+                                <MenuItem key={item.id} value={item.id}>{item.nome}</MenuItem>
                             ))}
                         </Select>
                     </Box>

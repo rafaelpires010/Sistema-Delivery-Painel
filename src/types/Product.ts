@@ -3,8 +3,8 @@ import { Categoria } from "./Categoria"
 export type Product = {
 
     id: number
-    image: string
-    categoria: Categoria;
+    img: string
+    id_category: number;
     nome: string
     preco: number;
     description?: string;
