@@ -27,7 +27,7 @@ export const CategoryEditDialog = ({ open, onClose, onSave, category, disabled }
                             id="nameField"
                             variant="standard"
                             name="name"
-                            defaultValue={category?.name}
+                            defaultValue={category?.nome}
                             required
                             fullWidth
                             disabled={disabled}
