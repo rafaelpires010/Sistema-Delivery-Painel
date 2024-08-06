@@ -13,7 +13,7 @@ const tempProduct: Product = {
     description: 'um burgão boladão muito legal'
 }
 
-const API_BASE_URL = 'http://localhost:9000';
+const API_BASE_URL = 'http://192.168.0.17:9000';
 const tenentSlug = 'restaurant-one';
 export const api = {
     login: async (email: string, password: string): Promise<{error: string, token?: string}> => {
