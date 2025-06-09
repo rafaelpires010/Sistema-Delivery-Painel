@@ -390,18 +390,28 @@ export const Header = () => {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                            DeliveryApp
-                        </Typography>
+                        <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+                            <img
+                                src="/logo2.png"
+                                alt="DeliveryApp Logo"
+                                style={{
+                                    height: 80,
+                                    marginRight: 10
+                                }}
+                            />
+                            <Typography variant="h6" sx={{ color: 'white', fontWeight: 'bold', fontSize: 24 }}>
+                                Bevon Delivery
+                            </Typography>
+                        </Box>
 
                         <Box
                             onClick={handleToggleStore}
                             sx={{
                                 paddingLeft: 2,
-                                borderLeft: "2px solid #12599b",
+                                borderLeft: "2px solid #6c31a2",
                                 position: "relative", // Necessário para posicionar o texto de hover
                                 "&:hover": {
-                                    backgroundColor: "#f0f0f0", // Cor de fundo ao passar o mouse
+                                    backgroundColor: "#dec8ff", // Cor de fundo ao passar o mouse
                                     cursor: "pointer",
                                 },
                                 "&:hover .hoverText": {
@@ -457,7 +467,7 @@ export const Header = () => {
                                     top: "100%", // Posicionado abaixo do box
                                     left: 0,
                                     right: 0,
-                                    backgroundColor: "#12599b",
+                                    backgroundColor: "#6c31a2",
                                     color: "white",
                                     textAlign: "center",
                                     borderRadius: "5px",
@@ -706,7 +716,7 @@ export const Header = () => {
                             fontSize: "1.5rem",
                             fontWeight: "bold",
                             textAlign: "center",
-                            backgroundColor: "#12599b", // Cor de fundo do título
+                            backgroundColor: "#6c31a2", // Cor de fundo do título
                             color: "white", // Cor do texto
                             borderTopLeftRadius: "15px", // Bordas superiores
                             borderTopRightRadius: "15px",

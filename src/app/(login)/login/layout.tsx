@@ -12,6 +12,9 @@ type Props = {
 const Layout = ({ children }: Props) => {
     return (
         <html lang="pt-br">
+            <head>
+                <link rel="icon" href="/logo2.png" type="image/png" />
+            </head>
             <body>
                 <AuthContextProvider>
                     <Container component={"main"} maxWidth="xs">
@@ -21,7 +24,7 @@ const Layout = ({ children }: Props) => {
                             flexDirection: 'column',
                             alignItems: 'center'
                         }}>
-                            <Typography component={"h3"} variant="h3">Delivery</Typography>
+                            <img src="/logo.png" alt="Logo" width={280} />
                             <Typography component={"h5"} variant="h5">Painel do estabelecimento</Typography>
 
                             {children}

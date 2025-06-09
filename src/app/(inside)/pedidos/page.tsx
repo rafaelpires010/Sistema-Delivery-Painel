@@ -284,25 +284,25 @@ const Page = () => {
                         {
                             label: "Total de Pedidos",
                             count: totalOrders,
-                            bg: "rgba(39, 135, 186, 0.8)",
+                            bg: "rgba(108, 49, 162, 0.8)",
                             icon: <ShoppingBag sx={{ fontSize: 28, mb: 1 }} />
                         },
                         {
                             label: "Em Produção",
                             count: totalInProduction,
-                            bg: "rgba(237, 108, 2, 0.8)",
+                            bg: "rgba(3, 169, 244, 0.8)",
                             icon: <Restaurant sx={{ fontSize: 28, mb: 1 }} />
                         },
                         {
                             label: "Enviados",
                             count: totalShipped,
-                            bg: "rgba(209, 177, 37, 0.8)",
+                            bg: "rgba(221, 148, 34, 0.8)",
                             icon: <TwoWheeler sx={{ fontSize: 28, mb: 1 }} />
                         },
                         {
                             label: "Entregues",
                             count: totalDelivered,
-                            bg: "rgba(39, 186, 58, 0.8)",
+                            bg: "rgba(76, 175, 80, 0.8)",
                             icon: <CheckCircle sx={{ fontSize: 28, mb: 1 }} />
                         }
                     ].map(({ label, count, bg, icon }, index) => (
@@ -384,9 +384,9 @@ const Page = () => {
                 {/* Listagem de Pedidos */}
                 <Grid container spacing={2}>
                     {[
-                        { status: 'received', title: 'Novo Pedido', color: '#2787ba' },
-                        { status: 'preparing', title: 'Em Preparação', color: '#ED6C02' },
-                        { status: 'sent', title: 'Enviado', color: '#d1b125' }
+                        { status: 'received', title: 'Novo Pedido', color: '#6c31a2' },
+                        { status: 'preparing', title: 'Em Preparação', color: '#03A9F4' },
+                        { status: 'sent', title: 'Enviado', color: '#dd9422' }
                     ].map(({ status, title, color }, index) => (
                         <Grid item xs={12} md={4} key={index}>
                             <Paper sx={{
